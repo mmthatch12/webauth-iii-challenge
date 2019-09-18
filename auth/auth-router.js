@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const secrets = require('')
 
 const Users = require('./auth-model')
 
@@ -20,7 +21,7 @@ router.post('/register', (req, res) => {
         })
 })
 
-router.post('./login', (req, res) => {
+router.post('/login', (req, res) => {
     let { username, password } = req.body
 
     Users.findBy({ username })
@@ -42,6 +43,19 @@ router.post('./login', (req, res) => {
 router.get('/users', (req, res) => {
 
 })
+
+
+function generateToken(user) {
+    const payload = {
+        subject: user.id,
+        username: user.username
+    }
+    const options = {
+        expiresIn: '8h'
+    }
+
+    return jwt.sign(payload, secrets.jwtSecret, options)
+}
 
 module.exports = router
 
