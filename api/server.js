@@ -3,6 +3,6 @@ const AuthRouter = require('../auth/auth-router')
 
 const server = express()
 
-server.use('/api/auth', AuthRouter)
+server.use('/api', AuthRouter)
 
 module.exports = server;
