@@ -6,6 +6,7 @@ const Users = require('./auth-model')
 
 router.post('/register', (req, res) => {
     let user = req.body
+    console.log(user)
     const hash = bcrypt.hashSync(user.password, 10)
     user.password = hash
 
@@ -14,6 +15,7 @@ router.post('/register', (req, res) => {
             res.status(201).json(saved)
         })
         .catch(error => {
+            console.log(error)
             res.status(500).json(error)
         })
 })
