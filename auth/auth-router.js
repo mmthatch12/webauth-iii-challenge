@@ -32,7 +32,7 @@ router.post('/login', (req, res) => {
                 const token = generateToken(user)
                 res.status(200).json({ token })
             } else {
-                res.status(401).json({ message: 'Credentials not valid'})
+                res.status(401).json({ message: 'YOU SHALL NOT PASS!'})
             }
         })
         .catch(error => {
