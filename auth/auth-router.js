@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const secrets = require('')
+const secrets = require('../config/secrets')
+const restricted = require('./restricted-middleware')
 
 const Users = require('./auth-model')
 
@@ -40,8 +41,12 @@ router.post('/login', (req, res) => {
         })
 })
 
-router.get('/users', (req, res) => {
-
+router.get('/users', restricted, (req, res) => {
+    Users.find()
+        .then(users => {
+            res.json(users)
+        })
+        .catch(err => res.send(err))
 })
 
 
